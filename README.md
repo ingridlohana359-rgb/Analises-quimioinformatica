@@ -14,7 +14,7 @@ O pipeline foi estruturado seguindo boas práticas de engenharia de software e c
 * **Controle de Versão:** Git.
 
 A organização das pastas do repositório segue este padrão limpo:
-```text
+
 quimioinformatica-pipeline/
 │
 ├── data/                  # Dados brutos de entrada (SMILES e IDs)
