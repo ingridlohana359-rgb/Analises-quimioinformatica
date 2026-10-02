@@ -1,12 +1,13 @@
 """
-Módulo de Triagem Virtual Inicial
-Objetivo: Carregar dados do PubChem, calcular propriedades (RDKit) e filtrar compostos.
+Módulo de Triagem Virtual Corrigido
+Objetivo: Carregar dados, calcular propriedades físico-químicas via RDKit e filtrar compostos.
 """
 
 import os
 import pandas as pd
 from rdkit import Chem
 from rdkit.Chem import Descriptors
+from rdkit.Chem.rdMolDescriptors import CalcNumHBD, CalcNumHBA
 
 def carregar_dados(caminho_arquivo):
     """Lê um arquivo CSV contendo IDs de compostos e sequências SMILES."""
@@ -23,8 +24,8 @@ def calcular_propriedades(df):
         if mol:
             pesos.append(Descriptors.MolWt(mol))
             logs.append(Descriptors.MolLogP(mol))
-            hbd.append(Descriptors.CalcNumHBD(mol))
-            hba.append(Descriptors.CalcNumHBA(mol))
+            hbd.append(CalcNumHBD(mol))
+            hba.append(CalcNumHBA(mol))
         else:
             pesos.append(None)
             logs.append(None)
@@ -47,13 +48,12 @@ def filtrar_candidatos(df):
     ]
 
 if __name__ == "__main__":
-    # Caminho corrigido apontando para os dados baixados do PubChem
     input_path = "data/moleculas_pubchem.csv"
     output_path = "outputs/candidatos_filtrados.csv"
     
     os.makedirs("outputs", exist_ok=True)
     
-    print("[INFO] Iniciando triagem virtual com dados do PubChem...")
+    print("[INFO] Iniciando triagem virtual com os dados...")
     df_mol = carregar_dados(input_path)
     df_calc = calcular_propriedades(df_mol)
     df_filtrado = filtrar_candidatos(df_calc)

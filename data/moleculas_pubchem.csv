@@ -1,1 +1,4 @@
 ID,smiles,Molecular_Weight_PubChem
+PubChem_2244,CC(=O)OC1=CC=CC=C1C(=O)O,180.16
+PubChem_3672,CC(C)CC1=CC=C(C=C1)C(C)C(=O)O,206.28
+PubChem_1983,CC(=O)NC1=CC=C(O)C=C1,151.16
