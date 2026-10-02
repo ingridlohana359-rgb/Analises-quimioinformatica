@@ -1,31 +1,45 @@
 # Pipeline Automatizado de Triagem Virtual em Quimioinformática
 
 ## Sobre o Projeto
-Este projeto consiste num **pipeline computacional** desenvolvido em Python e executado em ambiente Linux (Ubuntu) para realizar a **triagem virtual** de compostos químicos. O principal objetivo é automatizar a busca por moléculas com potencial farmacológico, avaliando rapidamente se elas possuem características adequadas para se tornarem potenciais fármacos.
+Este projeto consiste em um **pipeline computacional** desenvolvido em Python para realizar a triagem virtual de moléculas utilizando a **Regra de Lipinski** (Regra dos Cinco) para avaliação de *drug-likeness*. 
 
-Em termos simples: o script pega um lote de moléculas, calcula suas propriedades físicas e químicas e aplica um "peneiramento inteligente" para separar apenas aquelas que têm boas chances de serem absorvidas pelo organismo humano.
+O sistema processa compostos, calcula propriedades físico-químicas essenciais (peso molecular, lipofilicidade, doadores e aceitadores de hidrogênio) e gera relatórios automáticos em PDF juntamente com um dashboard interativo em Excel (`.xlsx`).
+
+## Arquitetura e Tecnologias
+O pipeline foi estruturado seguindo boas práticas de engenharia de dados:
+- **Linguagem:** Python 3 (utilizando `Pandas` para manipulação de dados e `RDKit` para química computacional).
+- **Relatórios:** Automação de planilhas formatadas com `OpenPyXL` e relatórios executivos.
+- **Controle de Versão:** Git e GitHub.
+
+## Organização do Repositório
+- `data/` : Dados brutos de entrada (arquivos SMILES e identificadores)
+- `outputs/` : Resultados processados, relatórios PDF e dashboard em Excel
+- `scripts/` : Scripts de automação (triagem, relatórios e geração da planilha)
+- `.ignorarnogit` : Configuração de arquivos ignorados pelo Git
+- `requisitos.txt` : Dependências e bibliotecas do projeto
+- `README.md` : Documentação detalhada do projeto
+
+## A Lógica por Trás do Filtro: A Regra de Lipinski
+Para aprovar os compostos, o script avalia quatro critérios de absorção oral:
+- **Peso Molecular (Molecular Weight $\le$ 500 g/mol):** Garante facilidade de permeação pelas membranas celulares.
+- **Lipofilicidade (LogP $\le$ 5):** Mede o coeficiente de partição óleo/água.
+- **Doadores de Hidrogênio (H_Donors $\le$ 5):** Contagem de grupos hidroxila e amina.
+- **Aceitadores de Hidrogênio (H_Acceptors $\le$ 10):** Contagem de átomos de oxigênio e nitrogênio.
 
 ---
 
-## Arquitetura e Tecnologias
-O pipeline foi estruturado seguindo boas práticas de engenharia de software e ciência de dados:
-* **Linguagem:** Python 3 (com bibliotecas especializadas como `Pandas` para manipulação de tabelas e `RDKit` para química computacional).
-* **Fonte de Dados:** API pública do PubChem (com um mecanismo de segurança/fallback para garantir estabilidade offline).
-* **Controle de Versão:** Git.
+## Como Instalar e Configurar
 
-A organização das pastas do repositório segue este padrão limpo:
+1. Clone o repositório e acesse a pasta:
+   bash
+   git clone [https://github.com/ingridlohana359-rgb/Analises-quimioinformatica.git](https://github.com/ingridlohana359-rgb/Analises-quimioinformatica.git)
+   cd Analises-quimioinformatica
 
-quimioinformatica-pipeline/
-│
-├── data/                  # Dados brutos de entrada (SMILES e IDs)
-├── outputs/               # Resultados processados e filtrados
-├── scripts/               # Scripts de automação (download, triagem e relatório)
-├── .ignorarnogit          # Arquivos ignorados pelo Git
-└── README.md              # Documentação do projeto
-A Lógica por Trás do Filtro: A Regra de Lipinski
-​Para decidir quais compostos são aprovados, o script utiliza a famosa Regra de Lipinski (também conhecida como a Regra dos Cinco). Na indústria farmacêutica, essa regra serve para avaliar a "drug-likeness" (o perfil de semelhança com um fármaco) de uma molécula, prevendo se ela pode ser administrada por via oral de forma eficiente.
-​O filtro avalia quatro critérios principais:
-​Peso Molecular (Molecular_Weight \le 500 g/mol): Moléculas muito grandes têm dificuldade de atravessar as membranas celulares. O limite garante que o composto seja pequeno o suficiente para circular bem pelo corpo.
-​Lipofilicidade (LogP \le 5): Mede o quanto a molécula gosta de gordura em relação à água. Um valor equilibrado garante que ela consiga atravessar as paredes celulares de gordura sem ficar "presa" nelas.
-​Doadores de Hidrogênio (H_Donors \le 5): Conta grupos como hidroxilas ou aminas. Limitar esse número evita que a molécula tenha dificuldades para passar pelas barreiras biológicas.
-​Aceitadores de Hidrogênio (H_Acceptors \le 10): Conta átomos como oxigênio e nitrogênio que fazem ligações de hidrogênio. Controlar essa quantidade garante uma boa solubilidade e interação com os alvos biológicos.
+## A Lógica por Trás do Filtro: A Regra de Lipinski
+Para decidir quais compostos são aprovados, o script utiliza a famosa Regra de Lipinski (também conhecida como a Regra dos Cinco). Na indústria farmacêutica, essa regra avalia o perfil de *drug-likeness* (viabilidade como fármaco).
+O filtro avalia quatro critérios principais:
+- **Peso Molecular (Molecular_Weight $\le$ 500 g/mol):** Moléculas muito grandes têm dificuldade de atravessar as membranas celulares. O limite garante que o composto mantenha propriedades farmacocinéticas adequadas.
+- **Lipofilicidade (LogP $\le$ 5):** Mede o quanto a molécula gosta de gordura em relação à água. Um valor equilibrado garante que ela consiga atravessar as paredes celulares lipídicas.
+- **Doadores de Hidrogênio (H_Donors $\le$ 5):** Conta grupos como hidroxilas ou aminas. Limitar esse número evita que a molécula tenha dificuldades para passar pelas barreiras biológicas.
+- **Aceitadores de Hidrogênio (H_Acceptors $\le$ 10):** Conta átomos como oxigênio e nitrogênio que fazem ligações de hidrogênio. Controlar essa quantidade garante uma boa solubilidade e interação com os alvos biológicos.
+-
