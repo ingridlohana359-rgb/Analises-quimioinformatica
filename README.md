@@ -34,4 +34,7 @@ Para aprovar os compostos, o script avalia quatro critérios de absorção oral:
    bash
    git clone [https://github.com/ingridlohana359-rgb/Analises-quimioinformatica.git](https://github.com/ingridlohana359-rgb/Analises-quimioinformatica.git)
    cd Analises-quimioinformatica
-
+## Testes
+O projeto conta com testes unitários básicos para garantir a confiabilidade da lógica de triagem da Regra de Lipinski. Para executar os testes localmente:
+```bash
+python3 -m unittest discover tests
