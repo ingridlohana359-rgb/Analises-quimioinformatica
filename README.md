@@ -35,11 +35,3 @@ Para aprovar os compostos, o script avalia quatro critérios de absorção oral:
    git clone [https://github.com/ingridlohana359-rgb/Analises-quimioinformatica.git](https://github.com/ingridlohana359-rgb/Analises-quimioinformatica.git)
    cd Analises-quimioinformatica
 
-## A Lógica por Trás do Filtro: A Regra de Lipinski
-Para decidir quais compostos são aprovados, o script utiliza a famosa Regra de Lipinski (também conhecida como a Regra dos Cinco). Na indústria farmacêutica, essa regra avalia o perfil de *drug-likeness* (viabilidade como fármaco).
-O filtro avalia quatro critérios principais:
-- **Peso Molecular (Molecular_Weight $\le$ 500 g/mol):** Moléculas muito grandes têm dificuldade de atravessar as membranas celulares. O limite garante que o composto mantenha propriedades farmacocinéticas adequadas.
-- **Lipofilicidade (LogP $\le$ 5):** Mede o quanto a molécula gosta de gordura em relação à água. Um valor equilibrado garante que ela consiga atravessar as paredes celulares lipídicas.
-- **Doadores de Hidrogênio (H_Donors $\le$ 5):** Conta grupos como hidroxilas ou aminas. Limitar esse número evita que a molécula tenha dificuldades para passar pelas barreiras biológicas.
-- **Aceitadores de Hidrogênio (H_Acceptors $\le$ 10):** Conta átomos como oxigênio e nitrogênio que fazem ligações de hidrogênio. Controlar essa quantidade garante uma boa solubilidade e interação com os alvos biológicos.
--
